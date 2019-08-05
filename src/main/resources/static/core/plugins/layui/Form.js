@@ -9,18 +9,6 @@
 core.plugins.layui.Form = (function() {
 
 	/**
-	 * LAYUI Form实例
-	 */
-	var LayuiForm;
-
-	// 调用LAYUI,form模块
-	layui.use([ "form" ], function() {
-
-		// 获取LAYUI Form实例
-		LayuiForm = layui.form;
-	});
-
-	/**
 	 * 构造函数
 	 */
 	var Constructor = function() {
@@ -338,8 +326,12 @@ core.plugins.layui.Form = (function() {
 			id : "corePluginsLayuiForm" + _this.id()
 		}, btnFunction)));
 
-		// 渲染表单
-		LayuiForm.render();
+		// 调用LAYUI,form模块
+		layui.use([ "form" ], function() {
+
+			// 获取LAYUI Form实例
+			layui.form.render();
+		});
 
 		// 返回自身
 		return this;
@@ -379,8 +371,15 @@ core.plugins.layui.Form = (function() {
 	 */
 	Constructor.prototype.load = function(data) {
 
-		// 加载数据
-		LayuiForm.val(this.filter(), data);
+		// 备份this
+		var _this = this;
+
+		// 调用LAYUI,form模块
+		layui.use([ "form" ], function() {
+
+			// 获取LAYUI Form实例
+			layui.form.val(_this.filter(), data);
+		});
 	};
 
 	/**

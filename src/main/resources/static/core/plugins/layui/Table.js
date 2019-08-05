@@ -9,18 +9,6 @@
 core.plugins.layui.Table = (function() {
 
 	/**
-	 * LAYUI Table实例
-	 */
-	var LayuiTable;
-
-	// 调用LAYUI,table模块
-	layui.use([ "table" ], function() {
-
-		// 获取LAYUI table实例
-		LayuiTable = layui.table;
-	});
-
-	/**
 	 * 构造函数
 	 */
 	var Constructor = function() {
@@ -386,47 +374,54 @@ core.plugins.layui.Table = (function() {
 			toolbar = setToolbar;
 		}
 
-		// 初始化表格,并记录返回的LAYUI实例
-		this.layui(LayuiTable.render({
-			elem : _this.elem(),
-			cols : _this.cols(),
-			url : _this.url(),
-			toolbar : toolbar,
-			defaultToolbar : _this.defaultToolbar(),
-			width : _this.width(),
-			height : _this.height(),
-			page : _this.page(),
-			autoSort : _this.autoSort(),
-			initSort : _this.initSort()
-		}));
+		// 调用LAYUI,table模块
+		layui.use([ "table" ], function() {
 
-		// 判断设置的toolbar类型
-		if (typeof (setToolbar) === "object") {
+			// 获取LAYUI table实例
+			var table = layui.table;
 
-			// 监听toolbar事件
-			LayuiTable.on("toolbar(" + this.filter() + ")", function(obj) {
+			// 初始化表格,并记录返回的LAYUI实例
+			_this.layui(table.render({
+				elem : _this.elem(),
+				cols : _this.cols(),
+				url : _this.url(),
+				toolbar : toolbar,
+				defaultToolbar : _this.defaultToolbar(),
+				width : _this.width(),
+				height : _this.height(),
+				page : _this.page(),
+				autoSort : _this.autoSort(),
+				initSort : _this.initSort()
+			}));
 
-				// 遍历设置的toolbar
-				for (var i = 0, length = setToolbar.length; i < length; i++) {
+			// 判断设置的toolbar类型
+			if (typeof (setToolbar) === "object") {
 
-					// 获取配置信息
-					var config = setToolbar[i];
+				// 监听toolbar事件
+				table.on("toolbar(" + this.filter() + ")", function(obj) {
 
-					// 判断事件是否一致
-					if (obj.event === config.event) {
+					// 遍历设置的toolbar
+					for (var i = 0, length = setToolbar.length; i < length; i++) {
 
-						// 存在处理函数,则调用
-						typeof (config.handler) === "function" && config.handler(obj);
+						// 获取配置信息
+						var config = setToolbar[i];
+
+						// 判断事件是否一致
+						if (obj.event === config.event) {
+
+							// 存在处理函数,则调用
+							typeof (config.handler) === "function" && config.handler(obj);
+						}
 					}
-				}
+				});
+			}
+
+			// 监听行单击事件
+			table.on("row(" + this.filter() + ")", function(obj) {
+
+				// 存在行单击事件,则调用
+				typeof (_this.row()) === "function" && _this.row()(obj);
 			});
-		}
-
-		// 监听行单击事件
-		table.on("row(" + this.filter() + ")", function(obj) {
-
-			// 存在行单击事件,则调用
-			typeof (_this.row()) === "function" && _this.row()(obj);
 		});
 
 		// 返回自身
