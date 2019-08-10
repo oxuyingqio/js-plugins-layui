@@ -122,5 +122,20 @@ core.plugins.layui.Layer = {
 				icon : 2
 			});
 		});
+	},
+
+	/**
+	 * 加载框
+	 */
+	loading : function() {
+
+		var index;
+
+		layui.use("layer", function() {
+
+			index = layui.layer.load(0);
+		});
+
+		return index;
 	}
 };
