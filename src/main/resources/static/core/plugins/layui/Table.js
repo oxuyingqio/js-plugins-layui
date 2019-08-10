@@ -86,6 +86,10 @@ core.plugins.layui.Table = (function() {
 		 * 行单击事件
 		 */
 		var row;
+		/**
+		 * 行双击事件
+		 */
+		var rowDouble;
 
 		/**
 		 * -----------------------------------方法----------------------------------------
@@ -320,6 +324,23 @@ core.plugins.layui.Table = (function() {
 				return this;
 			}
 		};
+
+		/**
+		 * 获取/设置行双击事件
+		 * 
+		 * @param row
+		 * @returns
+		 */
+		this.rowDouble = function() {
+
+			switch (arguments.length) {
+			case 0:
+				return rowDouble;
+			default:
+				rowDouble = arguments[0];
+				return this;
+			}
+		};
 	};
 
 	/**
@@ -398,7 +419,7 @@ core.plugins.layui.Table = (function() {
 			if (typeof (setToolbar) === "object") {
 
 				// 监听toolbar事件
-				table.on("toolbar(" + this.filter() + ")", function(obj) {
+				table.on("toolbar(" + _this.filter() + ")", function(obj) {
 
 					// 遍历设置的toolbar
 					for (var i = 0, length = setToolbar.length; i < length; i++) {
@@ -417,10 +438,17 @@ core.plugins.layui.Table = (function() {
 			}
 
 			// 监听行单击事件
-			table.on("row(" + this.filter() + ")", function(obj) {
+			table.on("row(" + _this.filter() + ")", function(obj) {
 
 				// 存在行单击事件,则调用
 				typeof (_this.row()) === "function" && _this.row()(obj);
+			});
+
+			// 监听行双击事件
+			table.on("rowDouble(" + _this.filter() + ")", function(obj) {
+
+				// 存在行双击事件,则调用
+				typeof (_this.rowDouble()) === "function" && _this.rowDouble()(obj);
 			});
 		});
 
