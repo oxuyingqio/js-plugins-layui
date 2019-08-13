@@ -51,6 +51,14 @@ core.plugins.layui.Table = (function() {
 		 */
 		var url;
 		/**
+		 * 接口http请求类型，默认：get
+		 */
+		var method = "post";
+		/**
+		 * 接口的其它参数。如：where: {token: 'sasasas', id: 123}
+		 */
+		var where = {};
+		/**
 		 * 开启表格头部工具栏区域
 		 */
 		var toolbar;
@@ -185,6 +193,40 @@ core.plugins.layui.Table = (function() {
 				return url;
 			default:
 				url = arguments[0];
+				return this;
+			}
+		};
+
+		/**
+		 * 获取/设置 method
+		 * 
+		 * @param method
+		 * @returns
+		 */
+		this.method = function() {
+
+			switch (arguments.length) {
+			case 0:
+				return method;
+			default:
+				method = arguments[0];
+				return this;
+			}
+		};
+
+		/**
+		 * 获取/设置 where
+		 * 
+		 * @param where
+		 * @returns
+		 */
+		this.where = function() {
+
+			switch (arguments.length) {
+			case 0:
+				return where;
+			default:
+				where = arguments[0];
 				return this;
 			}
 		};
@@ -371,7 +413,7 @@ core.plugins.layui.Table = (function() {
 			// 添加内容
 			html.push("<div class='layui-btn-container'>");
 			// 遍历设置的toolbar
-			for (var i = 0, length = setToolbar.length; i < length; i++) {
+			for (var i = 0; i < setToolbar.length; i++) {
 
 				// 获取配置信息
 				var config = setToolbar[i];
@@ -406,6 +448,8 @@ core.plugins.layui.Table = (function() {
 				elem : _this.elem(),
 				cols : _this.cols(),
 				url : _this.url(),
+				method : _this.method(),
+				where : _this.where(),
 				toolbar : toolbar,
 				defaultToolbar : _this.defaultToolbar(),
 				width : _this.width(),
@@ -422,7 +466,7 @@ core.plugins.layui.Table = (function() {
 				table.on("toolbar(" + _this.filter() + ")", function(obj) {
 
 					// 遍历设置的toolbar
-					for (var i = 0, length = setToolbar.length; i < length; i++) {
+					for (var i = 0; i < setToolbar.length; i++) {
 
 						// 获取配置信息
 						var config = setToolbar[i];

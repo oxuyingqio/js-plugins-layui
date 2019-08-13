@@ -79,10 +79,6 @@ core.plugins.layui.Layer = {
 		// 调用LAYUI Notice模块
 		layui.use("notice", function() {
 
-			layui.notice.msg(content, {
-				icon : 5
-			});
-
 			switch (typeof (param)) {
 			case "undefined":
 				layui.notice.msg(content, {

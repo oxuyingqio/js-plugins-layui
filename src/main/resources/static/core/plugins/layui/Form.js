@@ -226,7 +226,7 @@ core.plugins.layui.Form = (function() {
 		// 获取数据
 		var data = this.data();
 		// 遍历数据
-		for (var i = 0, length = data.length; i < length; i++) {
+		for (var i = 0; i < data.length; i++) {
 
 			// 添加内容
 			html.push("<div class='layui-form-item'>");
@@ -234,7 +234,7 @@ core.plugins.layui.Form = (function() {
 			// 获取行数据
 			var row = data[i];
 			// 遍历行数据
-			for (var j = 0, jLength = row.length; j < jLength; j++) {
+			for (var j = 0; j < row.length; j++) {
 
 				// 获取列数据
 				var column = row[j];
@@ -255,8 +255,7 @@ core.plugins.layui.Form = (function() {
 					}
 
 					// 添加内容
-					html.push("<div class='" + (jLength === 1 ? "layui-input-block" : "layui-input-inline") + "' style='"
-							+ (column.layui && column.layui.style ? column.layui.style : "") + "'>");
+					html.push("<div class='layui-input-inline' style='" + (column.layui && column.layui.style ? column.layui.style : "") + "'>");
 
 					// 是否存在HTML
 					if (column.html) {
@@ -308,7 +307,7 @@ core.plugins.layui.Form = (function() {
 		// 获取按钮
 		var button = this.button();
 		// 遍历按钮
-		for (var i = 0, length = button.length; i < length; i++) {
+		for (var i = 0; i < button.length; i++) {
 
 			// 添加按钮
 			btn.push(button[i].text);
