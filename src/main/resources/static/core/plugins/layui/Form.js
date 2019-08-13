@@ -255,7 +255,8 @@ core.plugins.layui.Form = (function() {
 					}
 
 					// 添加内容
-					html.push("<div class='layui-input-inline' style='" + (column.layui && column.layui.style ? column.layui.style : "") + "'>");
+					html.push("<div class='layui-input-" + (j == row.length - 1 ? "block" : "inline") + "' style='"
+							+ (column.layui && column.layui.style ? column.layui.style : "") + "'>");
 
 					// 是否存在HTML
 					if (column.html) {
