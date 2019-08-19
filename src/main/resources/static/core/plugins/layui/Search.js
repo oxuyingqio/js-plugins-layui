@@ -216,6 +216,13 @@ core.plugins.layui.Search = (function() {
 		// 重置按钮
 		$("#" + this.id() + "Reset").click(function() {
 
+			// 获取搜索内所有包含name属性,并遍历
+			_this.$jQuery().find("[name]").each(function() {
+
+				// 清空内容
+				$(this).val("");
+			});
+
 			// 获取搜索内所有input,并遍历
 			_this.$jQuery().find("input").each(function() {
 
@@ -236,8 +243,8 @@ core.plugins.layui.Search = (function() {
 		// 实例化搜索数据
 		var data = [];
 
-		// 获取搜索内所有input,并遍历
-		this.$jQuery().find("input").each(function() {
+		// 获取搜索内所有包含name属性,并遍历
+		this.$jQuery().find("[name]").each(function() {
 
 			// 判断内容是否为空
 			if ($(this).val() !== "") {
