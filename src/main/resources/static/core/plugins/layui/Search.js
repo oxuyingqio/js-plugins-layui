@@ -133,7 +133,7 @@ core.plugins.layui.Search = (function() {
 						if (typeof (config.label) === "string") {
 
 							// 添加内容
-							html.push("<label class='layui-form-label'>");
+							html.push("<label class='layui-form-label' style='white-space:nowrap'>");
 							html.push(config.label);
 							html.push("</label>");
 						}
@@ -189,7 +189,7 @@ core.plugins.layui.Search = (function() {
 				html.push("	<button id='" + this.id() + "Search' class='layui-btn icon-btn'>");
 				html.push("		<i class='layui-icon'></i>搜索");
 				html.push("	</button>");
-				html.push("	<button id='" + this.id() + "Reset' class='layui-btn icon-btn'>");
+				html.push("	<button id='" + this.id() + "Reset' class='layui-btn icon-btn layui-btn-primary'>");
 				html.push("		<i class='layui-icon'></i>重置");
 				html.push("	</button>");
 				html.push("</div>");
