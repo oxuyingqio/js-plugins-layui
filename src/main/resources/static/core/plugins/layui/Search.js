@@ -133,7 +133,7 @@ core.plugins.layui.Search = (function() {
 						if (typeof (config.label) === "string") {
 
 							// 添加内容
-							html.push("<label class='layui-form-label' style='white-space:nowrap'>");
+							html.push("<label class='layui-search-label' style='white-space:nowrap'>");
 							html.push(config.label);
 							html.push("</label>");
 						}
