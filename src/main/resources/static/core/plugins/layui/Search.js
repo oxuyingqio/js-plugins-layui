@@ -252,13 +252,13 @@ core.plugins.layui.Search = (function() {
 				// 实例化标识
 				var flag = true;
 				// 遍历已添加的数据
-				for ( var d in data) {
+				for (var i = 0; i < data.length; i++) {
 
 					// 判断搜索字段是否一致
-					if (d.field === $(this).attr("field")) {
+					if (data[i].field === $(this).attr("field")) {
 
 						// 添加内容
-						d.data.push($(this).val());
+						data[i].values.push($(this).val());
 						// 修改标识
 						flag = false;
 					}
