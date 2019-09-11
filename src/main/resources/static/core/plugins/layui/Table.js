@@ -443,6 +443,9 @@ core.plugins.layui.Table = (function() {
 			// 获取LAYUI table实例
 			var table = layui.table;
 
+			// 获取cookie
+			var cookie = core.html.utils.Cookie.getInstance();
+
 			// 初始化表格,并记录返回的LAYUI实例
 			_this.layui(table.render({
 				elem : _this.elem(),
@@ -454,7 +457,13 @@ core.plugins.layui.Table = (function() {
 				defaultToolbar : _this.defaultToolbar(),
 				width : _this.width(),
 				height : _this.height(),
+				done : function(res, curr, count) {
+
+					// 设置Cookie
+					cookie.set("COOKIE_CORE_PLUGINS_LAYUI_TABLE_" + _this.elem(), _this.layui().config.page.limit, 3650);
+				},
 				page : _this.page(),
+				limit : cookie.get("COOKIE_CORE_PLUGINS_LAYUI_TABLE_" + _this.elem()) ? cookie.get("COOKIE_CORE_PLUGINS_LAYUI_TABLE_" + _this.elem()) : 10,
 				autoSort : _this.autoSort(),
 				initSort : _this.initSort()
 			}));
