@@ -323,6 +323,7 @@ core.plugins.layui.Form = (function() {
 						html.push("id='" + column.input.name + "' ");
 						html.push("name='" + column.input.name + "' ");
 						html.push("type='" + (column.input.type ? column.input.type : "text") + "' ");
+						html.push(column.input.readOnly ? "readOnly " : " ");
 						html.push("class='layui-input' ");
 						html.push(column.input.checked ? ("checked='" + column.input.checked + "' ") : "");
 						html.push(column.input.verify ? ("lay-verify='" + column.input.verify + "' ") : "");
