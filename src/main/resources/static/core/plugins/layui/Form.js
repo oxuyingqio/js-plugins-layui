@@ -21,6 +21,10 @@ core.plugins.layui.Form = (function() {
 		 */
 		var id = arguments[0];
 		/**
+		 * 父ID
+		 */
+		var pid;
+		/**
 		 * 过滤器
 		 */
 		var filter = arguments.length > 1 ? arguments[1] : arguments[0];
@@ -36,6 +40,10 @@ core.plugins.layui.Form = (function() {
 		 * 弹出层索引
 		 */
 		var index;
+		/**
+		 * 实现类型
+		 */
+		var impl;
 
 		/**
 		 * ----------------------LAYUI弹出层属性----------------------
@@ -79,6 +87,23 @@ core.plugins.layui.Form = (function() {
 				return id;
 			default:
 				id = arguments[0];
+				return this;
+			}
+		};
+
+		/**
+		 * 获取/设置 pid
+		 * 
+		 * @param pid
+		 * @returns
+		 */
+		this.pid = function() {
+
+			switch (arguments.length) {
+			case 0:
+				return pid;
+			default:
+				pid = arguments[0];
 				return this;
 			}
 		};
@@ -152,6 +177,23 @@ core.plugins.layui.Form = (function() {
 		};
 
 		/**
+		 * 获取/设置 impl
+		 * 
+		 * @param impl
+		 * @returns
+		 */
+		this.impl = function() {
+
+			switch (arguments.length) {
+			case 0:
+				return impl;
+			default:
+				impl = arguments[0];
+				return this;
+			}
+		};
+
+		/**
 		 * 获取/设置 title
 		 * 
 		 * @param title
@@ -219,7 +261,15 @@ core.plugins.layui.Form = (function() {
 		html.push("<form ");
 		html.push("id='" + this.id() + "' ");
 		html.push("class='layui-form layui-form-pane' ");
-		html.push("style='margin:15px 75px 0px 75px;' ");
+		html.push("style='");
+		// 判断实现方式
+		if (this.impl() === "HTML") {
+
+			html.push(this.width() ? "width:" + this.width() + "; " : "");
+			html.push(this.height() ? "height:" + this.height() + "; " : "");
+		}
+		html.push("margin:15px 75px 0px 75px; ");
+		html.push("' ");
 		html.push("lay-filter='" + this.filter() + "' ");
 		html.push(">");
 
@@ -301,30 +351,62 @@ core.plugins.layui.Form = (function() {
 		// 添加内容
 		html.push("</form>");
 
-		// 实例化按钮
-		var btn = [];
-		// 实例化按钮函数
-		var btnFunction = {};
 		// 获取按钮
 		var button = this.button();
-		// 遍历按钮
-		for (var i = 0; i < button.length; i++) {
+		// 判断实现方式
+		if (this.impl() === "HTML") {
 
-			// 添加按钮
-			btn.push(button[i].text);
-			// 设置按钮函数.使用函数寄存器调用,处理循环引用异常问题
-			btnFunction[i === 0 ? "yes" : "btn" + (i + 1)] = new FunctionRegister(button[i].handler).cal;
+			// 添加内容
+			html.push(" <div style='text-align:right'>")
+			// 遍历按钮
+			for (var i = 0; i < button.length; i++) {
+
+				// 添加内容
+				html.push("<a ")
+				html.push("id='" + this.id() + "button" + i + "' ")
+				html.push("class='layui-btn ");
+				html.push(i === 0 ? "layui-btn-normal" : "layui-btn-primary");
+				html.push("'>");
+				html.push(button[i].text);
+				html.push("</a>");
+			}
+			// 添加内容
+			html.push("</div>");
+
+			// 添加内容
+			$("#" + this.pid()).html(html.join(""));
+
+			// 遍历按钮
+			for (var i = 0; i < button.length; i++) {
+
+				// 设置事件
+				$("#" + this.id() + "button" + i).click(button[i].handler);
+			}
+		} else {
+
+			// 实例化按钮
+			var btn = [];
+			// 实例化按钮函数
+			var btnFunction = {};
+			// 遍历按钮
+			for (var i = 0; i < button.length; i++) {
+
+				// 添加按钮
+				btn.push(button[i].text);
+				// 设置按钮函数.使用函数寄存器调用,处理循环引用异常问题
+				btnFunction[i === 0 ? "yes" : "btn" + (i + 1)] = new FunctionRegister(button[i].handler).cal;
+			}
+
+			// 打开弹出层,并记录索引
+			this.index(layer.open($.extend({
+				type : 1,
+				title : _this.title(),
+				content : html.join(""),
+				area : [ _this.width(), _this.height() ],
+				btn : btn,
+				id : "corePluginsLayuiForm" + _this.id()
+			}, btnFunction)));
 		}
-
-		// 打开弹出层,并记录索引
-		this.index(layer.open($.extend({
-			type : 1,
-			title : _this.title(),
-			content : html.join(""),
-			area : [ _this.width(), _this.height() ],
-			btn : btn,
-			id : "corePluginsLayuiForm" + _this.id()
-		}, btnFunction)));
 
 		// 调用LAYUI,form模块
 		layui.use([ "form" ], function() {

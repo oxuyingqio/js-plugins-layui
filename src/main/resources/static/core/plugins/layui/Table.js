@@ -460,7 +460,7 @@ core.plugins.layui.Table = (function() {
 				done : function(res, curr, count) {
 
 					// 设置Cookie
-					cookie.set("COOKIE_CORE_PLUGINS_LAYUI_TABLE_" + _this.elem(), _this.layui().config.page.limit, 3650);
+					cookie.set("COOKIE_CORE_PLUGINS_LAYUI_TABLE_" + _this.elem(), (_this.layui().config.page.limit ? _this.layui().config.page.limit : 10), 3650);
 				},
 				page : _this.page(),
 				limit : cookie.get("COOKIE_CORE_PLUGINS_LAYUI_TABLE_" + _this.elem()) ? cookie.get("COOKIE_CORE_PLUGINS_LAYUI_TABLE_" + _this.elem()) : 10,
