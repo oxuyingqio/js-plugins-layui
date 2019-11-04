@@ -301,6 +301,13 @@ core.plugins.layui.Form = (function() {
 							html.push("<label class='layui-form-label'>");
 							html.push(column.label);
 							html.push("</label>");
+						} else if (typeof (column.label) === "object") {
+
+							// 添加元素
+							html.push("<label class='layui-form-label'>");
+							html.push(column.label.required ? "<font style='color:red;position:relative;top:2px;'>*</font>&nbsp;" : "");
+							html.push(column.label.text);
+							html.push("</label>");
 						}
 					}
 

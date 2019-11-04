@@ -140,7 +140,7 @@ core.plugins.layui.Search = (function() {
 					}
 
 					// 添加内容
-					html.push("<div class='layui-input-inline' style='" + (config.layui && config.layui.style ? config.layui.style : "") + "'>");
+					html.push("<div class='layui-input-inline' style='margin:0px; " + (config.layui && config.layui.style ? config.layui.style : "") + "'>");
 
 					// 是否存在HTML
 					if (config.html) {
@@ -185,11 +185,11 @@ core.plugins.layui.Search = (function() {
 			if (i === 0) {
 
 				// 添加内容
-				html.push("<div class='layui-inline'>");
+				html.push("<div class='layui-inline' style='margin:0px;margin-left:10px;'>");
 				html.push("	<button id='" + this.id() + "Search' class='layui-btn icon-btn'>");
 				html.push("		<i class='layui-icon'></i>搜索");
 				html.push("	</button>");
-				html.push("	<button id='" + this.id() + "Reset' class='layui-btn icon-btn layui-btn-primary'>");
+				html.push("	<button id='" + this.id() + "Reset' class='layui-btn icon-btn layui-btn-primary' style='margin:0px;margin-left:3px;'>");
 				html.push("		<i class='layui-icon'></i>重置");
 				html.push("	</button>");
 				html.push("</div>");

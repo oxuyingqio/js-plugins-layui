@@ -1725,18 +1725,32 @@ a cite {
 }
 
 .layui-text
+
  
+
 a
+
+
 :not
+
  
+
 (
 .layui-btn
+
  
+
 ){
 color
+
+
 :
+
  
+
 #01AAED
+
+
 
 
 }
@@ -5157,14 +5171,22 @@ to {
 opacity
 
 
+
+
 :
+
+
 
 
 1;
 -webkit-transform
 
 
+
+
 :scale(1)
+
+
 
 
 }
@@ -5180,21 +5202,33 @@ keyframes layui-scale { 0%{
 opacity
 
 
+
+
 :
+
+
 
 
 1;
 -ms-transform
 
 
+
+
 :scale(1)
+
+
 
 
 ;
 transform
 
 
+
+
 :scale(1)
+
+
 
 
 }
@@ -5214,21 +5248,33 @@ transform
 opacity
 
 
+
+
 :
 
 
+
+
 .8
+
+
 
 
 ;
 -webkit-transform
 
 
+
+
 :scale
+
+
 
 
 (1
 .1
+
+
 
 
 )
@@ -5237,14 +5283,22 @@ opacity
 opacity
 
 
+
+
 :
+
+
 
 
 1;
 -webkit-transform
 
 
+
+
 :scale(1)
+
+
 
 
 }
@@ -5259,21 +5313,33 @@ keyframes layui-scale-spring { 0%{
 opacity
 
 
+
+
 :
 
 
+
+
 .8
+
+
 
 
 ;
 transform
 
 
+
+
 :scale
+
+
 
 
 (1
 .1
+
+
 
 
 )
@@ -5282,14 +5348,22 @@ transform
 opacity
 
 
+
+
 :
+
+
 
 
 1;
 transform
 
 
+
+
 :scale(1)
+
+
 
 
 }
@@ -5308,7 +5382,11 @@ transform
 opacity
 
 
+
+
 :
+
+
 
 
 1
@@ -5323,7 +5401,11 @@ keyframes layui-fadein { 0%{
 opacity
 
 
+
+
 :
+
+
 
 
 1
@@ -5343,7 +5425,11 @@ opacity
 opacity
 
 
+
+
 :
+
+
 
 
 0
@@ -5358,7 +5444,11 @@ keyframes layui-fadeout { 0%{
 opacity
 
 
+
+
 :
+
+
 
 
 0

@@ -75,6 +75,10 @@ core.plugins.layui.Table = (function() {
 		 */
 		var height;
 		/**
+		 * 数据渲染完的回调
+		 */
+		var done;
+		/**
 		 * 开启分页
 		 */
 		var page = true;
@@ -300,6 +304,23 @@ core.plugins.layui.Table = (function() {
 		};
 
 		/**
+		 * 获取/设置 done
+		 * 
+		 * @param done
+		 * @returns
+		 */
+		this.done = function() {
+
+			switch (arguments.length) {
+			case 0:
+				return done;
+			default:
+				done = arguments[0];
+				return this;
+			}
+		};
+
+		/**
 		 * 获取/设置 page
 		 * 
 		 * @param page
@@ -420,6 +441,7 @@ core.plugins.layui.Table = (function() {
 
 				// 添加内容
 				html.push("<button ");
+				html.push(config.id ? "id='" + config.id + "' " : " ");
 				html.push("class='" + (config.iconCls ? config.iconCls : "layui-btn layui-btn-sm") + "' ");
 				html.push("lay-event='" + config.event + "' ");
 				html.push(">");
@@ -461,11 +483,21 @@ core.plugins.layui.Table = (function() {
 
 					// 设置Cookie
 					cookie.set("COOKIE_CORE_PLUGINS_LAYUI_TABLE_" + _this.elem(), (_this.layui().config.page.limit ? _this.layui().config.page.limit : 10), 3650);
+
+					// 调用数据渲染完的回调
+					typeof (_this.done()) === "function" && _this.done()(res, curr, count);
 				},
 				page : _this.page(),
 				limit : cookie.get("COOKIE_CORE_PLUGINS_LAYUI_TABLE_" + _this.elem()) ? cookie.get("COOKIE_CORE_PLUGINS_LAYUI_TABLE_" + _this.elem()) : 10,
 				autoSort : _this.autoSort(),
-				initSort : _this.initSort()
+				initSort : _this.initSort(),
+				fail : function(XMLHttpRequest, textStatus, errorThrown) {
+
+					core.plugins.layui.Layer.alertError("远程数据加载失败，请刷新页面重试。<br>点击【确定】将自动刷新本页面。", function() {
+
+						location.reload();
+					});
+				}
 			}));
 
 			// 判断设置的toolbar类型
