@@ -270,6 +270,8 @@ core.plugins.layui.Form = (function() {
 		}
 		html.push("margin:15px 75px 0px 75px; ");
 		html.push("' ");
+		html.push("method='post' ");
+		html.push("enctype='multipart/form-data' ");
 		html.push("lay-filter='" + this.filter() + "' ");
 		html.push(">");
 
