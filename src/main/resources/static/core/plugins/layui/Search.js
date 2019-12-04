@@ -157,6 +157,7 @@ core.plugins.layui.Search = (function() {
 						html.push("id='" + config.input.name + "' ");
 						html.push("name='" + config.input.name + "' ");
 						html.push("type='" + (config.input.type ? config.input.type : "text") + "' ");
+						html.push("value='" + (config.input.value ? config.input.value : "") + "' ");
 						html.push("field='" + config.input.field + "' ");
 						html.push("queryMode='" + config.input.queryMode + "' ");
 						html.push("class='layui-input' ");
