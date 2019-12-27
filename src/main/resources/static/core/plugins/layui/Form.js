@@ -340,6 +340,7 @@ core.plugins.layui.Form = (function() {
 						html.push(column.input.layVerify ? ("lay-verify='" + column.input.layVerify + "' ") : "");
 						html.push(column.input.layReqtext ? ("lay-reqtext='" + column.input.layReqtext + "' ") : "");
 						html.push(column.input.laySkin ? ("lay-skin='" + column.input.laySkin + "' ") : "");
+						html.push(column.input.skin ? ("lay-skin='" + column.input.skin + "' ") : "");
 						html.push(column.input.layFilter ? ("lay-filter='" + column.input.layFilter + "' ") : "");
 						html.push(column.input.layText ? ("lay-text='" + column.input.layText + "' ") : "");
 						html.push(column.input.placeholder ? ("placeholder='" + column.input.placeholder + "' ") : "");
