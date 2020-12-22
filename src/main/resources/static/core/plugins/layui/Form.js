@@ -314,8 +314,8 @@ core.plugins.layui.Form = (function() {
 					}
 
 					// 添加内容
-					html.push("<div class='layui-input-" + (j == row.length - 1 ? "block" : "inline") + "' style='"
-							+ (column.layui && column.layui.style ? column.layui.style : "") + "'>");
+					html.push("<div class='layui-input-" + (row.length === 1 ? "block" : "inline") + "' style='" + (column.layui && column.layui.style ? column.layui.style : "")
+							+ "'>");
 
 					// 是否存在HTML
 					if (column.html) {
@@ -329,7 +329,7 @@ core.plugins.layui.Form = (function() {
 
 						// 添加内容
 						html.push("<input ");
-						html.push("id='" + column.input.name + "' ");
+						html.push("id='" + (column.input.id ? column.input.id : column.input.name) + "' ");
 						html.push("name='" + column.input.name + "' ");
 						html.push("type='" + (column.input.type ? column.input.type : "text") + "' ");
 						html.push(column.input.value ? ("value='" + column.input.value + "' ") : "");

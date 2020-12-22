@@ -129,7 +129,9 @@ core.plugins.layui.Layer = {
 
 		layui.use("layer", function() {
 
-			index = layui.layer.load(0);
+			index = layui.layer.load(0, {
+				shade : 0.3
+			});
 		});
 
 		return index;

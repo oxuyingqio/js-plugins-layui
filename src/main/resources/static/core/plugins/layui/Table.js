@@ -75,6 +75,10 @@ core.plugins.layui.Table = (function() {
 		 */
 		var height;
 		/**
+		 * 直接赋值数据。既适用于只展示一页数据，也非常适用于对一段已知数据进行多页展示。
+		 */
+		var data;
+		/**
 		 * 数据渲染完的回调
 		 */
 		var done;
@@ -304,6 +308,23 @@ core.plugins.layui.Table = (function() {
 		};
 
 		/**
+		 * 获取/设置 data
+		 * 
+		 * @param data
+		 * @returns
+		 */
+		this.data = function() {
+
+			switch (arguments.length) {
+			case 0:
+				return data;
+			default:
+				data = arguments[0];
+				return this;
+			}
+		};
+
+		/**
 		 * 获取/设置 done
 		 * 
 		 * @param done
@@ -479,10 +500,14 @@ core.plugins.layui.Table = (function() {
 				defaultToolbar : _this.defaultToolbar(),
 				width : _this.width(),
 				height : _this.height(),
+				data : _this.data(),
 				done : function(res, curr, count) {
 
-					// 设置Cookie
-					cookie.set("COOKIE_CORE_PLUGINS_LAYUI_TABLE_" + _this.elem(), (_this.layui().config.page.limit ? _this.layui().config.page.limit : 10), 3650);
+					if (_this.layui() && _this.layui().config && _this.layui().config.page && _this.layui().config.page.limit) {
+
+						// 设置Cookie
+						cookie.set("COOKIE_CORE_PLUGINS_LAYUI_TABLE_" + _this.elem(), (_this.layui().config.page.limit ? _this.layui().config.page.limit : 10), 3650);
+					}
 
 					// 调用数据渲染完的回调
 					typeof (_this.done()) === "function" && _this.done()(res, curr, count);
