@@ -59,6 +59,10 @@ core.plugins.layui.Table = (function() {
 		 */
 		var where = {};
 		/**
+		 * 数据格式解析的回调函数，用于将返回的任意数据格式解析成 table 组件规定的数据格式。
+		 */
+		var parseData;
+		/**
 		 * 开启表格头部工具栏区域
 		 */
 		var toolbar;
@@ -236,6 +240,23 @@ core.plugins.layui.Table = (function() {
 			default:
 				where = arguments[0];
 				return this;
+			}
+		};
+
+		/**
+		 * 获取/设置 parseData
+		 *
+		 * @param parseData
+		 * @returns
+		 */
+		this.parseData = function() {
+
+			switch (arguments.length) {
+				case 0:
+					return parseData;
+				default:
+					parseData = arguments[0];
+					return this;
 			}
 		};
 
@@ -496,6 +517,18 @@ core.plugins.layui.Table = (function() {
 				url : _this.url(),
 				method : _this.method(),
 				where : _this.where(),
+				parseData: function(res) {
+
+					// 判断是否设置
+					if (typeof (_this.parseData()) === "function") {
+
+						// 返回
+						return _this.parseData()(res);
+					}
+
+					// 直接返回
+					return res;
+				},
 				toolbar : toolbar,
 				defaultToolbar : _this.defaultToolbar(),
 				width : _this.width(),
