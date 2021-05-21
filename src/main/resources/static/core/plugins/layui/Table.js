@@ -79,13 +79,17 @@ core.plugins.layui.Table = (function() {
 		 */
 		var height;
 		/**
-		 * 直接赋值数据。既适用于只展示一页数据，也非常适用于对一段已知数据进行多页展示。
-		 */
-		var data;
-		/**
 		 * 数据渲染完的回调
 		 */
 		var done;
+		/**
+		 * 数据请求失败的回调
+		 */
+		var error;
+		/**
+		 * 直接赋值数据。既适用于只展示一页数据，也非常适用于对一段已知数据进行多页展示。
+		 */
+		var data;
 		/**
 		 * 开启分页
 		 */
@@ -329,6 +333,40 @@ core.plugins.layui.Table = (function() {
 		};
 
 		/**
+		 * 获取/设置 done
+		 *
+		 * @param done
+		 * @returns
+		 */
+		this.done = function() {
+
+			switch (arguments.length) {
+			case 0:
+				return done;
+			default:
+				done = arguments[0];
+				return this;
+			}
+		};
+
+		/**
+		 * 获取/设置 error
+		 *
+		 * @param done
+		 * @returns
+		 */
+		this.error = function() {
+
+			switch (arguments.length) {
+			case 0:
+				return error;
+			default:
+				error = arguments[0];
+				return this;
+			}
+		};
+
+		/**
 		 * 获取/设置 data
 		 * 
 		 * @param data
@@ -341,23 +379,6 @@ core.plugins.layui.Table = (function() {
 				return data;
 			default:
 				data = arguments[0];
-				return this;
-			}
-		};
-
-		/**
-		 * 获取/设置 done
-		 * 
-		 * @param done
-		 * @returns
-		 */
-		this.done = function() {
-
-			switch (arguments.length) {
-			case 0:
-				return done;
-			default:
-				done = arguments[0];
 				return this;
 			}
 		};
@@ -412,6 +433,10 @@ core.plugins.layui.Table = (function() {
 				return this;
 			}
 		};
+
+	    /**
+         * -----------------------------------LAYUI事件---------------------------------------------
+         */
 
 		/**
 		 * 获取/设置行单击事件
@@ -533,7 +558,6 @@ core.plugins.layui.Table = (function() {
 				defaultToolbar : _this.defaultToolbar(),
 				width : _this.width(),
 				height : _this.height(),
-				data : _this.data(),
 				done : function(res, curr, count) {
 
 					if (_this.layui() && _this.layui().config && _this.layui().config.page && _this.layui().config.page.limit) {
@@ -545,6 +569,12 @@ core.plugins.layui.Table = (function() {
 					// 调用数据渲染完的回调
 					typeof (_this.done()) === "function" && _this.done()(res, curr, count);
 				},
+				error : function(e, content){
+
+				    // 调用数据渲染完的回调
+                    typeof (_this.error()) === "function" && _this.error()(e, content);
+				},
+				data : _this.data(),
 				page : _this.page(),
 				limit : cookie.get("COOKIE_CORE_PLUGINS_LAYUI_TABLE_" + _this.elem()) ? cookie.get("COOKIE_CORE_PLUGINS_LAYUI_TABLE_" + _this.elem()) : 10,
 				autoSort : _this.autoSort(),
