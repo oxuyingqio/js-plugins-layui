@@ -571,21 +571,23 @@ core.plugins.layui.Table = (function() {
 				},
 				error : function(e, content){
 
-				    // 调用数据渲染完的回调
-                    typeof (_this.error()) === "function" && _this.error()(e, content);
+                    // 判断请求状态
+				    if(e.readyState < 4) {
+
+                        alert("服务器链接超时，请稍后重试。");
+                   	} else {
+
+                        core.plugins.layui.Layer.alertError("登录超时。<br>点击【确定】将自动刷新本页面。", function() {
+
+                            location.reload();
+                        });
+                   	}
 				},
 				data : _this.data(),
 				page : _this.page(),
 				limit : cookie.get("COOKIE_CORE_PLUGINS_LAYUI_TABLE_" + _this.elem()) ? cookie.get("COOKIE_CORE_PLUGINS_LAYUI_TABLE_" + _this.elem()) : 10,
 				autoSort : _this.autoSort(),
-				initSort : _this.initSort(),
-				fail : function(XMLHttpRequest, textStatus, errorThrown) {
-
-					core.plugins.layui.Layer.alertError("远程数据加载失败，请刷新页面重试。<br>点击【确定】将自动刷新本页面。", function() {
-
-						location.reload();
-					});
-				}
+				initSort : _this.initSort()
 			}));
 
 			// 判断设置的toolbar类型
